@@ -6,8 +6,8 @@ require 'hubble_observatory/version'
 Gem::Specification.new do |spec|
   spec.name          = "hubble_observatory"
   spec.version       = HubbleObservatory::VERSION
-  spec.authors       = ["Bruce Park"]
-  spec.email         = ["bruce.park@fullscreen.net"]
+  spec.authors       = ["Bruce Park", "Claudio Baccigalupo"]
+  spec.email         = ["bruce.park@fullscreen.net", "claudio@fullscreen.net"]
 
   spec.summary       = %q{A client gem for the Hubble API}
   spec.description   = %q{A client gem for the Hubble API}

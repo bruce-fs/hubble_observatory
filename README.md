@@ -69,6 +69,14 @@ talent_account = HubbleObservatory::TalentAccount.new id: '123456'
 talent_account.update email: 'newuser@example.com'
 # => '123456'
 ```
+### FsEmployee#create
+
+Obtain the token of a employee given the appropriate access token:
+
+```ruby
+HubbleObservatory::FsEmployee.create access_token: 'ya.29defg'
+# => 'hb.484562'
+```
 
 ## How to develop and contribute
 

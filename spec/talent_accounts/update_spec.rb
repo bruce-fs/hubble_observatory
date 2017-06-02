@@ -5,7 +5,7 @@ describe 'HubbleObservatory::TalentAccount#update' do
     email_to_update = 'updateme@example.com'
     id_to_update = HubbleObservatory::TalentAccount.create email: email_to_update
     @account = HubbleObservatory::TalentAccount.new id: id_to_update
-    
+
     @existing_email = 'existing@example.com'
     HubbleObservatory::TalentAccount.create email: @existing_email
   end
