@@ -16,7 +16,7 @@ module HubbleObservatory
 
     # @return [String] the hubble uuid associated with the email
     def update(email:)
-      request = HubbleObservatory::Request.new(attrs: {body_attrs: {email: email}, route: "talent-accounts/#{@hubble_uuid}", request_type: :put, auth_header: true})
+      request = HubbleObservatory::Request.new(attrs: {body_attrs: {email: email}, route: "talent-accounts/hubble-uuid/#{@hubble_uuid}", request_type: :patch, auth_header: true})
       @response = request.run_request
       self.class.process_account_data(@response)
     end
@@ -24,13 +24,14 @@ module HubbleObservatory
     private
 
     def self.process_account_data(account_data)
-      if account_data
-        extract_attribute_from_data(data: account_data, attribute: :id) || extract_uuid_from_errors(data: account_data)
-      end
+      hubble_uuid = if account_data
+                      extract_attribute_from_data(data: account_data, attribute: :hubble_uuid) || extract_uuid_from_errors(data: account_data)
+                    end
+      hubble_uuid.to_s if !hubble_uuid.nil?
     end
 
     def self.extract_attribute_from_data(data:, attribute:)
-      data.fetch(:data, {}).fetch(attribute, nil)
+      data.fetch(:data, {}).fetch(:attributes, {}).fetch(attribute, nil)
     end
 
     def self.extract_uuid_from_errors(data:)
