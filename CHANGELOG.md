@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.1.1 - 2017-06-26
+
+* [BUGFIX] - Update internal calls to the Hubble API. The
+  Hubble API now expects a PATCH request to a different endpoint to
+  obtain the hubble uuid on update.
+
 ## 1.1.0  - 2017-06-02
 
 * [FEATURE] Add `FsEmployee#create`
