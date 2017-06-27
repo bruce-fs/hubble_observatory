@@ -20,9 +20,7 @@ module HubbleObservatory
 
     # Sends the request and returns the response
     def run_request
-      if response.is_a?(Net::HTTPSuccess) || response.is_a?(Net::HTTPUnprocessableEntity)
-        parse(response)
-      end
+      parse(response)
     end
 
     # parse the JSON response body

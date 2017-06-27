@@ -3,8 +3,15 @@ require 'spec_helper'
 describe 'HubbleObservatory::TalentAccount.create' do
   let(:id) { HubbleObservatory::TalentAccount.create email: email }
 
-  context 'with a valid email' do
+  context 'with an existing email' do
     let(:email) { 'user@example.com' }
+    it 'returns the account ID' do
+      expect(id).to be_a(String)
+    end
+  end
+
+  context 'with an original email' do
+    let(:email) { "user-#{Time.now.to_i}@example.com" }
     it 'returns the account ID' do
       expect(id).to be_a(String)
     end
