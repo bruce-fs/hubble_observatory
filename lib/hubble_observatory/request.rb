@@ -19,12 +19,7 @@ module HubbleObservatory
     end
 
     # Sends the request and returns the response
-    def run_request
-      parse(response)
-    end
-
-    # parse the JSON response body
-    def parse(response)
+    def response_body
       JSON.parse response.body, symbolize_names: true
     end
 

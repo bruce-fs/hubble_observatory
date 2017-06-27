@@ -13,7 +13,7 @@ describe 'HubbleObservatory::FsEmployee.create' do
     # requires a web interaction from a real user.
     before do
       expect_any_instance_of(HubbleObservatory::Request).
-       to receive(:run_request).and_return data: {attributes: {jwt_token: 'a-token'}}
+       to receive(:response_body).and_return data: {attributes: {jwt_token: 'a-token'}}
     end
   end
 
