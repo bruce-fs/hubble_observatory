@@ -25,13 +25,13 @@ module HubbleObservatory
 
     def self.process_account_data(account_data)
       hubble_uuid = if account_data
-                      extract_attribute_from_data(data: account_data, attribute: :hubble_uuid) || extract_uuid_from_errors(data: account_data)
+                      extract_hubble_uuid_from(account_data) || extract_uuid_from_errors(data: account_data)
                     end
       hubble_uuid.to_s if !hubble_uuid.nil?
     end
 
-    def self.extract_attribute_from_data(data:, attribute:)
-      data.fetch(:data, {}).fetch(:attributes, {}).fetch(attribute, nil)
+    def self.extract_hubble_uuid_from(data)
+      data.fetch(:data, {}).fetch(:attributes, {})[:hubble_uuid]
     end
 
     def self.extract_uuid_from_errors(data:)
