@@ -23,6 +23,15 @@ module HubbleObservatory
       JSON.parse response.body, symbolize_names: true
     end
 
+    def response
+      @response ||= Net::HTTP.start(uri.host, 443, use_ssl: true) do |http|
+        http.request create_http_request
+      end
+    rescue *ConnectionError.errors => e
+      raise ConnectionError, e.message
+    end
+
+
     private
 
     def serialize_attributes(attributes:)
@@ -36,14 +45,6 @@ module HubbleObservatory
 
     def uri
       @uri ||= URI::HTTPS.build host: host, path: "/api/v1/#{@route}", query: URI.encode_www_form(@query_params)
-    end
-
-    def response
-      Net::HTTP.start(uri.host, 443, use_ssl: true) do |http|
-        http.request create_http_request
-      end
-    rescue *ConnectionError.errors => e
-      raise ConnectionError, e.message
     end
 
     def create_http_request
