@@ -18,11 +18,12 @@ module HubbleObservatory
       @auth_header = attrs.fetch :auth_header, false
     end
 
-    # Sends the request and returns the response
+    # Parses the response body
     def response_body
       JSON.parse response.body, symbolize_names: true
     end
 
+    # Sends the request and returns the response
     def response
       @response ||= Net::HTTP.start(uri.host, 443, use_ssl: true) do |http|
         http.request create_http_request
