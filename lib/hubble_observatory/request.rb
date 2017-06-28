@@ -18,17 +18,20 @@ module HubbleObservatory
       @auth_header = attrs.fetch :auth_header, false
     end
 
-    # Sends the request and returns the response
-    def run_request
-      if response.is_a?(Net::HTTPSuccess) || response.is_a?(Net::HTTPUnprocessableEntity)
-        parse(response)
-      end
-    end
-
-    # parse the JSON response body
-    def parse(response)
+    # Parses the response body
+    def response_body
       JSON.parse response.body, symbolize_names: true
     end
+
+    # Sends the request and returns the response
+    def response
+      @response ||= Net::HTTP.start(uri.host, 443, use_ssl: true) do |http|
+        http.request create_http_request
+      end
+    rescue *ConnectionError.errors => e
+      raise ConnectionError, e.message
+    end
+
 
     private
 
@@ -43,14 +46,6 @@ module HubbleObservatory
 
     def uri
       @uri ||= URI::HTTPS.build host: host, path: "/api/v1/#{@route}", query: URI.encode_www_form(@query_params)
-    end
-
-    def response
-      Net::HTTP.start(uri.host, 443, use_ssl: true) do |http|
-        http.request create_http_request
-      end
-    rescue *ConnectionError.errors => e
-      raise ConnectionError, e.message
     end
 
     def create_http_request

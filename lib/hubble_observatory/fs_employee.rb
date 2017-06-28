@@ -5,9 +5,9 @@ module HubbleObservatory
     # @return [String] the token associated with the employee
     def self.create(access_token:)
       request = HubbleObservatory::Request.new(attrs: {request_type: :get, route: "fs-employees/jwt-token", query_params: { access_token: access_token}, auth_header: false} )
-      response= request.run_request
-      if response && response[:data]
-        response[:data][:attributes][:jwt_token]
+      response_body = request.response_body
+      if response_body && response_body[:data]
+        response_body[:data][:attributes][:jwt_token]
       end
     end
   end
